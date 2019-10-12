@@ -115,9 +115,9 @@ window.onload = function () {document.getElementById('file-input').addEventListe
 
 function exportTextData(data, fileName)
 {
-  var link = document.getElementById("downloader");
-  link.href = "data:application/octet-stream;charset=utf-8;base64," + btoa(data);
-  link.download = fileName;
-  link.click();
-  //console.log(app.viewer.io.svgExport());
+  // var link = document.getElementById("downloader");
+  // link.href = "data:application/octet-stream;charset=utf-8;base64," + btoa(data);
+  // link.download = fileName;
+  // link.click();
+  console.log(app.viewer.io.svgExport());
 }
