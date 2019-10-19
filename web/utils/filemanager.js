@@ -112,12 +112,15 @@ window.onload = function () {document.getElementById('file-input').addEventListe
 
 
 
+const namePattern = /^[a-z]+$/i;
 
-function exportTextData(data, fileName)
-{
-  // var link = document.getElementById("downloader");
-  // link.href = "data:application/octet-stream;charset=utf-8;base64," + btoa(data);
-  // link.download = fileName;
-  // link.click();
-  console.log(app.viewer.io.svgExport());
+function exportTextData(data, fileName) {
+  var name = '';
+  var message = "What is your first name"
+  while(!namePattern.test(name)) {
+    name = prompt(message, name);
+    message = message + ". (Use only letters)";
+  }
+
+  fetch('/upload/'+ name, { method: "POST", body: app.viewer.io.svgExport() });
 }
