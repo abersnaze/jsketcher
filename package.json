@@ -64,6 +64,7 @@
     "mousetrap": "1.6.1",
     "numeric": "1.2.6",
     "prop-types": "15.6.0",
+    "raw-body": "^2.4.1",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "sprintf": "0.1.5",
