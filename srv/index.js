@@ -3,7 +3,8 @@ const app = express();
 const port = process.env.PORT || 5000;
 const fs = require('fs');
 const getRawBody = require('raw-body')
-var contentType = require('content-type')
+const contentType = require('content-type')
+const os = require('os');
 
 app.use(express.static('dist'))
 app.use(function (req, res, next) {
@@ -17,7 +18,19 @@ app.use(function (req, res, next) {
     next()
   })
 });
-app.listen(port, () => console.log(`Listening on port http://localhost:${port}`));
+
+app.listen(port, () => {
+  const ifaces = os.networkInterfaces();
+
+  Object.values(ifaces).flat().forEach((iface) => {
+    if ('IPv4' !== iface.family || iface.internal !== false || iface.netmask === '255.255.255.255') {
+      // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
+      return;
+    }
+
+    console.log(`Listening on port http://${iface.address}:${port}`);
+  });
+});
 
 // create a route to POST uploads to.
 const namePattern = /[a-z][a-z.]+/i
