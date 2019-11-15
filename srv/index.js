@@ -22,14 +22,14 @@ app.use(function (req, res, next) {
 app.listen(port, () => {
   const ifaces = os.networkInterfaces();
 
-  Object.values(ifaces).flat().forEach((iface) => {
+  Object.values(ifaces).forEach(x => x.forEach((iface) => {
     if ('IPv4' !== iface.family || iface.internal !== false || iface.netmask === '255.255.255.255') {
       // skip over internal (i.e. 127.0.0.1) and non-ipv4 addresses
       return;
     }
 
     console.log(`Listening on port http://${iface.address}:${port}`);
-  });
+  }));
 });
 
 // create a route to POST uploads to.
